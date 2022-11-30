@@ -3,7 +3,7 @@ Shared common workflow actions
 
 The following reusable workflows are currently defined:
 
-## <ins>lint</ins>
+## <ins>Lint</ins>
 
 **Description**: Lint Codebase Using Super-Linter
 
@@ -15,7 +15,7 @@ The following reusable workflows are currently defined:
 |`default-branch`|The name of the repository default branch for Super-Linter|`'main'`|
 |`python-black-config-file`|Filename for black configuration (ex: .isort.cfg, pyproject.toml)|`'pyproject.toml'`|
 
-## <ins>docker-build</ins>
+## <ins>Docker Build</ins>
 
 **Description**: Build Docker image to target platform(s) using buildx
 
@@ -26,7 +26,7 @@ The following reusable workflows are currently defined:
 |`dockerfile`|Path to docker build file|`'Dockerfile'`|
 |`platform`|Comma delimited list of platform architecute targets for the build image|`'linux/amd64'`|
 
-## <ins>docker-build-push-ghcr</ins>
+## <ins>Docker Build and Push to GHCR</ins>
 
 **Description**: Build Docker image to target platform(s) and push to ghcr using buildx
 
