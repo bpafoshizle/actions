@@ -1,0 +1,40 @@
+name: Build Docker image to target platform(s) using buildx
+
+on:
+  workflow_call:
+    inputs:
+      dockerfile:
+        description: 'Path to docker build file'
+        required: false
+        type: string
+        default: 'Dockerfile'
+      platform:
+        description: 'Comma delimited list of platform architecute targets for the build image'
+        required: false
+        type: string
+        default: 'linux/amd64'
+
+jobs:
+  build-docker:
+    # Name the Job
+    name: Build docker
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      
+      # https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        
+      # https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: build image
+        run: |
+          docker buildx build \
+          --platform ${{ inputs.platform }} . \
+          --file ${{ inputs.dockerfile }}

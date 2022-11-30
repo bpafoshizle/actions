@@ -1,0 +1,41 @@
+name: Lint Codebase Using Super-Linter
+
+on:
+  workflow_call:
+    inputs:
+      linter-rules-path:
+        description: 'Tells Super-Linter where your rules files are located'
+        required: false
+        type: string
+        default: 'app'
+      default-branch:
+        description: 'The name of the repository default branch for Super-Linter'
+        type: string
+        default: 'main'
+      python-black-config-file:
+        description: 'Filename for black configuration (ex: .isort.cfg, pyproject.toml)'
+        type: string
+        default: pyproject.toml
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  format-and-lint:
+    # Name the Job
+    name: Lint code base
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Runs the Super-Linter action
+      - name: Run Super-Linter
+        uses: github/super-linter/slim@v4
+        env:
+          LINTER_RULES_PATH: ${{ inputs.linter-rules-path }}
+          DEFAULT_BRANCH: ${{ inputs.default-branch }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PYTHON_BLACK_CONFIG_FILE: ${{ inputs.python-black-config-file }}
