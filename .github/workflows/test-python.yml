@@ -1,0 +1,31 @@
+name: Test Python Code with unittest
+
+on:
+  workflow_call:
+    inputs:
+      env-setup-command:
+        description: 'Command to run to setup the environment for the tests'
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  test-python:
+    # Name the Job
+    name: Test python
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: install test dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: run tests
+        run: |
+          echo ${{ inputs.env-setup-command }} > environment.sh
+          source environment.sh
+          python -m unittest discover -v -s src
