@@ -18,12 +18,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Download environment.sh as an artifact
+      - name: Download test-environment.sh as an artifact
         uses: actions/download-artifact@v3
         with:
-          name: environment
+          name: test-environment
 
       - name: run tests
         run: |
-          source environment.sh
+          source test-environment.sh
           python -m unittest discover -v -s src
