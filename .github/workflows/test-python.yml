@@ -33,7 +33,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Download env.txt as an artifact
+      - name: Download environment.sh as an artifact
         uses: actions/download-artifact@v3
         with:
           name: environment
