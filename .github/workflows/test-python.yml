@@ -2,14 +2,24 @@ name: Test Python Code with unittest
 
 on:
   workflow_call:
-    inputs:
-      env-setup-command:
-        description: 'Command to run to setup the environment for the tests'
-        required: false
-        type: string
-        default: ''
 
 jobs:
+  check-env-file:
+    name: check environment file
+    runs-on: ubuntu-latest
+    needs: setup-environment-file
+    steps:
+      - name: Download env.txt as an artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: environment
+      - shell: bash
+        run: |
+          # Read the commands from the file
+          source environment.sh
+          # Print the environment variables
+          echo $DSCRD_CHNL_GENERAL
+
   test-python:
     # Name the Job
     name: Test python
@@ -24,8 +34,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: Download env.txt as an artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: environment
+
       - name: run tests
         run: |
-          echo ${{ inputs.env-setup-command }} > environment.sh
           source environment.sh
           python -m unittest discover -v -s src
