@@ -13,6 +13,9 @@ on:
         required: false
         type: string
         default: 'linux/amd64'
+    secrets:
+      PACKAGE_TOKEN:
+        required: true
 
 jobs:
   # Push image to GitHub Packages.
