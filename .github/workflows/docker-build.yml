@@ -13,6 +13,11 @@ on:
         required: false
         type: string
         default: 'linux/amd64'
+      build_dir:
+        description: 'Path to directory containing build context'
+        required: false
+        type: string
+        default: '.'
 
 jobs:
   build-docker:
@@ -36,5 +41,5 @@ jobs:
       - name: build image
         run: |
           docker buildx build \
-          --platform ${{ inputs.platform }} . \
+          --platform ${{ inputs.platform }} ${{ inputs.build_dir }} \
           --file ${{ inputs.dockerfile }}

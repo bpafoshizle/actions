@@ -13,6 +13,11 @@ on:
         required: false
         type: string
         default: 'linux/amd64'
+      build_dir:
+        description: 'Path to directory containing build context'
+        required: false
+        type: string
+        default: '.'
     secrets:
       PACKAGE_TOKEN:
         required: true
@@ -62,5 +67,5 @@ jobs:
 
           docker buildx build \
           --push --tag "$IMAGE_ID:$VERSION" \
-          --platform ${{ inputs.platform }} . \
+          --platform ${{ inputs.platform }} ${{ inputs.build_dir }} \
           --file ${{ inputs.dockerfile }}
