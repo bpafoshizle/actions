@@ -18,6 +18,11 @@ on:
         required: false
         type: string
         default: '.'
+      image_id:
+        description: 'Image ID to use for the build'
+        required: false
+        type: string
+        default: '${{ github.repository }}'
     secrets:
       PACKAGE_TOKEN:
         required: true
@@ -46,7 +51,7 @@ jobs:
 
       - name: build and push image
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}
+          IMAGE_ID=ghcr.io/${{ inputs.image_id }}
           GITHUB_REF="${{ github.ref }}"
 
           # Change all uppercase to lowercase
