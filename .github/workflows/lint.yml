@@ -42,3 +42,10 @@ jobs:
           DEFAULT_BRANCH: ${{ inputs.default-branch }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PYTHON_BLACK_CONFIG_FILE: ${{ inputs.python-black-config-file }}
+          VALIDATE_JSCPD: false
+          VALIDATE_CHECKOV: false
+          VALIDATE_MARKDOWN_PRETTIER: false
+          VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_PYTHON_MYPY: false
+          VALIDATE_PYTHON_PYINK: false
+          VALIDATE_PYTHON_RUFF: false
