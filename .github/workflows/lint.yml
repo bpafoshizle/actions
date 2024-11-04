@@ -51,3 +51,4 @@ jobs:
           VALIDATE_PYTHON_RUFF: false
           VALIDATE_PYTHON_PYLINT: false
           VALIDATE_YAML_PRETTIER: false
+          FIX_SHFMT: true
