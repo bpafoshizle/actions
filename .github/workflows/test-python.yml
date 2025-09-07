@@ -2,6 +2,12 @@ name: Test Python Code with unittest
 
 on:
   workflow_call:
+    inputs:
+      python-version:
+        description: "Version range or exact version of Python or PyPy to use, using SemVer's version range syntax. Reads from .python-version if unset."
+        required: false
+        default: '3.11'
+        type: string
 
 jobs:
   test-python:
@@ -12,7 +18,13 @@ jobs:
 
     steps:
       - name: checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "${{ inputs.python-version }}"
+          cache: 'pip' # caching pip dependencies
 
       - name: install test dependencies
         run: |
